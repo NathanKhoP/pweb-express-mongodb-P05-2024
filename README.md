@@ -1,5 +1,7 @@
 # pweb-express-mongodb-P05-2024
 
+## Initial Setup
+
 **NOTE: This project is using yarn.**
 
 Install dependencies with:
@@ -13,6 +15,19 @@ Run dev server with:
 ```
 yarn run dev
 ```
+
+**Setting .env**
+
+Create an .env file based on `.env.example`.
+
+```
+MONGODB_URI="mongodb+srv://<username>:<password>@<cluster>.mongodb.net/<database>?retryWrites=true&w=majority"
+JWT_SECRET=""
+```
+
+- MONGODB_URI can be obtained by going into MongoDB Atlas > Connect > Drivers (Use v5.5 stable API)
+
+- JWT_SECRET can be anything, like `qwertyuiopasdfghjklzxcvbnm`
 
 ## Development Flow
 
