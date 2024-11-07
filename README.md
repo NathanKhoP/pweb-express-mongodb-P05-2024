@@ -81,4 +81,4 @@ password: string;
 
 Health Check
 
-`{{BASE_URL}}/GET /`
+`GET {{BASE_URL}}/`
