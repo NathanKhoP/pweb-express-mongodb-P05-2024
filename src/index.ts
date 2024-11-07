@@ -2,6 +2,7 @@
 import express, { Express, Request, Response } from "express";
 import connDB from "./db-conn";
 import authRoutes from "./router/auth.router";
+import formatResponse from "./utils/formatResponse";
 
 const app: Express = express();
 const port = process.env.PORT || 3000;
@@ -12,7 +13,9 @@ app.use(express.json());
 connDB();
 
 app.get("/", (req: Request, res: Response) => {
-  res.send("Express + TS Server, running~");
+  const date = new Date().toLocaleString();
+  const response = formatResponse("success", "Hello World", date);
+  res.send(response);
 });
 
 // routers
