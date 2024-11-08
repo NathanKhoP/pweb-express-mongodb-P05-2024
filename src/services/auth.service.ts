@@ -1,10 +1,10 @@
-import type { IAuth } from "@/models/auth.model";
+import type { Auth_ } from "@/models/auth.model";
 import Auth from "@/models/auth.model";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 export class AuthService {
-  async register(authData: IAuth): Promise<IAuth> {
+  async register(authData: Auth_): Promise<Auth_> {
     if (await Auth.findOne({ email: authData.email })) {
       throw new Error("Email already exists...");
     }
@@ -17,7 +17,7 @@ export class AuthService {
   async login(authData: {
     email: string;
     password: string;
-  }): Promise<{ auth: IAuth; token: string }> {
+  }): Promise<{ auth: Auth_; token: string }> {
     const auth = await Auth.findOne ({ email: authData.email });
 
     if (!auth) {

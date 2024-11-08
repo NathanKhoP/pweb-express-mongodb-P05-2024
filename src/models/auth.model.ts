@@ -1,6 +1,6 @@
 import mongoose, { Schema, type Document } from "mongoose";
 
-export interface IAuth extends Document {
+export interface Auth_ extends Document {
   username: string;
   email: string;
   password: string;
@@ -12,4 +12,4 @@ const AuthSchema: Schema = new Schema({
   password: { type: String, required: true },
 });
 
-export default mongoose.model<IAuth>("Auth", AuthSchema);
+export default mongoose.model<Auth_>("Auth", AuthSchema);
