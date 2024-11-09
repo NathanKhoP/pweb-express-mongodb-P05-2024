@@ -8,7 +8,7 @@ class MechanismService {
       throw new Error("Book not found");
     }
 
-    if (book.qty <= 1) {
+    if (book.qty <= 0) {
       throw new Error("Book cannot be borrowed");
     }
 
@@ -23,12 +23,13 @@ class MechanismService {
       throw new Error("Book not found");
     }
 
-    if (book.qty >= book.initialQty) {
-      throw new Error("Book cannot be returned");
+    // Periksa apakah qty lebih kecil dari initialQty, jika ya, kembalikan buku
+    if (book.qty < book.initialQty) {
+      book.qty++;
+      return await BookService.modifyBook(bookId, book);
     }
 
-    book.qty++;
-    return await BookService.modifyBook(bookId, book);
+    throw new Error("All copies of this book are already returned");
   }
 }
 
