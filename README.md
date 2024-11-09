@@ -39,7 +39,7 @@ Create model (schema) > service > controller > router
 
 - **User register**
 
-`POST {{BASE_URL}}//auth/register`
+`POST {{BASE_URL}}/auth/register`
 
 Params
 
@@ -51,7 +51,7 @@ password: string;
 
 - **User login**
 
-`POST {{BASE_URL}}//auth/login`
+`POST {{BASE_URL}}/auth/login`
 
 Params
 
@@ -64,33 +64,33 @@ password: string;
 
 - Get All Books
 
-`GET {{BASE_URL}}//books`
+`GET {{BASE_URL}}/book`
 
 - Get Book by ID
 
-`GET {{BASE_URL}}//books/:id`
+`GET {{BASE_URL}}/book/:id`
 
 - Add New Book
 
-`POST {{BASE_URL}}//books`
+`POST {{BASE_URL}}/book`
 
 - Modify Book Data
 
-`PATCH {{BASE_URL}}//books/:id`
+`PATCH {{BASE_URL}}/book/:id`
 
 - Remove Book
 
-`DELETE {{BASE_URL}}//books/:id`
+`DELETE {{BASE_URL}}/book/:id`
 
 ### Mechanism (WIP)
 
 - Borrow a Book
 
-`POST {{BASE_URL}}//mechanism/borrow/:id`
+`POST {{BASE_URL}}/mechanism/borrow/:id`
 
 - Return a Book
 
-`POST {{BASE_URL}}//mechanism/return/:id`
+`POST {{BASE_URL}}/mechanism/return/:id`
 
 ### Misc
 
