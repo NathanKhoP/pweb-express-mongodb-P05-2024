@@ -12,7 +12,7 @@ export class BookService {
     return await Book.find();
   }
 
-  async getBookById(id: string): Promise<Book_> {
+  async getBookById(id: string | null): Promise<Book_> {
     if (!isValidObjectId(id)) {
       throw new Error("Invalid ID... - ${id}");
     }

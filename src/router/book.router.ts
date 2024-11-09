@@ -1,11 +1,13 @@
-// src/router/book.route.ts
+import BookController from '@/controllers/book.controller';
+import { authMiddleware } from '@/middleware/auth';
 import { Router } from 'express';
-import { getAllBooks, getBookById, addNewBook } from '../controllers/book.controller';
 
-const router = Router();
+const router: Router = Router();
 
-router.get('/', getAllBooks);      // Untuk mendapatkan semua buku
-router.get('/:id', getBookById);   // Untuk mendapatkan buku berdasarkan ID
-router.post('/', addNewBook);      // Untuk menambahkan buku baru
+router.get('/', authMiddleware, BookController.getBooks);
+router.get('/:id', authMiddleware, BookController.getBookById);
+router.post('/', authMiddleware, BookController.addBook);
+router.patch('/:id', authMiddleware, BookController.modifyBook);
+router.delete('/:id', authMiddleware, BookController.deleteBook);
 
 export default router;

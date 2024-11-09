@@ -1,61 +1,52 @@
-import { Request, Response } from 'express';
-import Book from '../models/book.model';
+import BookService from "@/services/book.service";
+import formatResponse from "@/utils/formatResponse";
+import { RequestHandler } from 'express';
 
-// Get All Books
-export const getAllBooks = async (req: Request, res: Response) => {
-  try {
-    const books = await Book.find();
-    res.status(200).json(books);
-  } catch (error) {
-    res.status(500).json({ message: 'Error retrieving books', error });
-  }
-};
-
-// Get Book by ID
-export const getBookById = async (req: Request, res: Response) => {
-  try {
-    const book = await Book.findById(req.params.id);
-    if (!book) {
-      return res.status(404).json({ message: 'Book not found' });
+class BookController {
+  public getBooks: RequestHandler = async (req, res, next) => {
+    try {
+      const books = await BookService.getBooks();
+      res.status(200).json(formatResponse("success", "Books retrieved successfully", books));
+    } catch (error: any) {
+      next(error);
     }
-    res.status(200).json(book);
-  } catch (error) {
-    res.status(500).json({ message: 'Error retrieving book', error });
-  }
-};
+  };
 
-// Add New Book
-export const addNewBook = async (req: Request, res: Response) => {
-  try {
-    const {
-      title,
-      author,
-      publishedDate,
-      publisher,
-      description,
-      coverImage,
-      rating,
-      tags,
-      initialQty,
-      qty
-    } = req.body;
+  public getBookById: RequestHandler = async (req, res, next) => {
+    try {
+      const book = await BookService.getBookById(req.params.id);
+      res.status(200).json(formatResponse("success", "Book retrieved successfully", book));
+    } catch (error: any) {
+      next(error);
+    }
+  };
 
-    const newBook = new Book({
-      title,
-      author,
-      publishedDate,
-      publisher,
-      description,
-      coverImage,
-      rating,
-      tags,
-      initialQty,
-      qty
-    });
+  public addBook: RequestHandler = async (req, res, next) => {
+    try {
+      const book = await BookService.addBook(req.body);
+      res.status(201).json(formatResponse("success", "Book added successfully", book));
+    } catch (error: any) {
+      next(error);
+    }
+  };
 
-    await newBook.save();
-    res.status(201).json(newBook);
-  } catch (error) {
-    res.status(500).json({ message: 'Error adding book', error });
-  }
-};
+  public modifyBook: RequestHandler = async (req, res, next) => {
+    try {
+      const book = await BookService.modifyBook(req.params.id, req.body);
+      res.status(200).json(formatResponse("success", "Book updated successfully", book));
+    } catch (error: any) {
+      next(error);
+    }
+  };
+
+  public deleteBook: RequestHandler = async (req, res, next) => {
+    try {
+      const book = await BookService.deleteBook(req.params.id);
+      res.status(200).json(formatResponse("success", "Book deleted successfully", book));
+    } catch (error: any) {
+      next(error);
+    }
+  };
+}
+
+export default new BookController();
