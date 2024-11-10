@@ -33,12 +33,12 @@ class AuthController {
 
   async login(req: Request, res: Response) {
     try {
-      const { email, password } = req.body;
-      if (!email || !password) {
-        throw new Error("Email and password are required...");
+      const { username, password } = req.body;
+      if (!username || !password) {
+        throw new Error("Username and password are required...");
       }
 
-      const { auth, token } = await AuthService.login({ email, password });
+      const { auth, token } = await AuthService.login({ username, password });
       const user = { username: auth.username, email: auth.email };
 
       res.status(200).json(formatResponse(

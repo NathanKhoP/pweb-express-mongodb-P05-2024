@@ -15,10 +15,10 @@ export class AuthService {
   }
 
   async login(authData: {
-    email: string;
+    username: string;
     password: string;
   }): Promise<{ auth: Auth_; token: string }> {
-    const auth = await Auth.findOne ({ email: authData.email });
+    const auth = await Auth.findOne ({ username: authData.username });
 
     if (!auth) {
       throw new Error("User not found...");
@@ -29,7 +29,7 @@ export class AuthService {
     }
 
     const token = jwt.sign(
-      { email: auth.email, id: auth._id },
+      { username: auth.username, id: auth._id },
       process.env.JWT_SECRET,
     );
 
