@@ -29,9 +29,36 @@ const BookSchema: Schema = new Schema(
         count: { type: Number, required: true },
       },
       tags: { type: [String], required: true },
-      initialQty: { type: Number, required: true },
-      qty: { type: Number, required: true },
+      initialQty: {
+        type: Number,
+        required: true,
+        validate: {
+          validator: function (value: number) {
+            return value >= 0;
+          },
+          message: "Initial quantity cannot be less than 0",
+        },
+      },
+      qty: {
+        type: Number,
+        required: true,
+        validate: [
+          {
+            validator: function (value: number) {
+              return value >= 0;
+            },
+            message: "Quantity cannot be less than 0",
+          },
+          {
+            validator: function (this: any, value: number) {
+              return value <= this.initialQty;
+            },
+            message: "Quantity cannot be more than initial quantity",
+          },
+        ],
+      },
     },
+    { timestamps: true }
 )
 
 export default mongoose.model<Book_>('Book', BookSchema);
